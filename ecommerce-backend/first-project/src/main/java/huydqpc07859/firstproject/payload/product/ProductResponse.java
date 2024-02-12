@@ -23,6 +23,7 @@ public class ProductResponse {
     private boolean deleted;
     private List<ProductItem> productItems;
     private String productCategoryName;
+    private Integer rank;
 
     public ProductResponse(Product product) {
         this.id = product.getId();
@@ -31,6 +32,7 @@ public class ProductResponse {
         this.imageUrl = product.getImageUrl();
         this.deleted = product.isDeleted();
         this.productItems = product.getProductItems();
+        this.rank = product.getRank();
         if(product.getProductCategory() != null){
             this.productCategoryName = product.getProductCategory().getName();
         }

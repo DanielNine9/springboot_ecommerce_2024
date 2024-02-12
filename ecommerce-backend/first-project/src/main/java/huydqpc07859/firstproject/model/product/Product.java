@@ -29,6 +29,7 @@ public class Product {
     private String imageUrl;
     private boolean deleted;
     private double discount;
+    private Integer rank;
     @OneToMany(mappedBy = "product")
     private List<ProductItem> productItems;
     @ManyToOne

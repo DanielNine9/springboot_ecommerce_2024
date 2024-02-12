@@ -18,7 +18,7 @@ import java.io.IOException;
 @RequestMapping("api/product")
 public class ProductController {
     private final ProductService productService;
-
+    
     @GetMapping
     public ResponseEntity<CommonResponse> getProducts() {
         return ResponseEntity.ok(new CommonResponse(productService.findAll()));

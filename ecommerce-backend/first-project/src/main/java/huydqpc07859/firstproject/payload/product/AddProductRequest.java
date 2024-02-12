@@ -17,4 +17,5 @@ public class AddProductRequest {
     @NotBlank
     private String nameCategory = "";
     private Double discount = 0.0;
+    private Integer rank = null;
 }

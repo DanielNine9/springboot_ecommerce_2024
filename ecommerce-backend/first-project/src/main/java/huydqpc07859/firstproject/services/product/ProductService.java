@@ -1,5 +1,6 @@
 package huydqpc07859.firstproject.services.product;
 
+import com.google.zxing.WriterException;
 import huydqpc07859.firstproject.model.category.ProductCategory;
 import huydqpc07859.firstproject.model.product.Product;
 import huydqpc07859.firstproject.model.user.User;
@@ -12,10 +13,12 @@ import huydqpc07859.firstproject.repositories.CategoryRepository;
 import huydqpc07859.firstproject.repositories.ProductRepository;
 import huydqpc07859.firstproject.repositories.UserRepository;
 import huydqpc07859.firstproject.services.CategoryService;
+import huydqpc07859.firstproject.utils.QRCodeGenerator;
 import lombok.AllArgsConstructor;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -52,7 +55,24 @@ public class ProductService {
                 .discount(request.getDiscount())
                 .build();
 
-        return productRepository.save(product);
+        if(request.getRank() != null){
+            Product prodRank = productRepository.findByRank(request.getRank()).orElse(null);
+            if(prodRank != null){
+                prodRank.setRank(null);
+                productRepository.save(prodRank);
+            }
+
+        }
+        product.setRank(request.getRank());
+        productRepository.save(product);
+        try {
+            QRCodeGenerator.generateQRCode(product);
+        } catch (WriterException e) {
+            throw new RuntimeException(e);
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+        return product;
     }
 
     public Product remove(Long id) {
@@ -74,16 +94,26 @@ public class ProductService {
     }
 
     public Product edit(EditProductRequest request) {
+
         Product product = productRepository.findById(request.getId())
                 .orElseThrow(() -> new IllegalArgumentException("Product not found"));
         if(!request.getNameCategory().isBlank()){
-            ProductCategory category = categoryService.findByName(request.getName());
+            ProductCategory category = categoryService.findByName(request.getNameCategory());
             product.setProductCategory(category);
         }
         product.setName(request.getName());
         product.setDescription(request.getDescription());
         product.setImageUrl(request.getImageUrl());
         product.setDeleted(request.isDeleted());
+
+        if(request.getRank() != null){
+            Product prodRank = productRepository.findByRank(request.getRank()).orElse(null);
+            if(prodRank != null){
+                prodRank.setRank(product.getRank());
+                productRepository.save(prodRank);
+            }
+        }
+        product.setRank(request.getRank());
 
         return productRepository.save(product);
     }

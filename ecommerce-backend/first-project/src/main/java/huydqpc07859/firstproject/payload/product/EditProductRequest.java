@@ -14,4 +14,5 @@ public class EditProductRequest {
     private String imageUrl;
     private String nameCategory;
     private boolean deleted;
+    private Integer rank = null;
 }

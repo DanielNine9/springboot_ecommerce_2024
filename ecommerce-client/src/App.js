@@ -25,6 +25,7 @@ import ListProduct from "./components/admin/product/ListProduct";
 import EditProduct from "./components/admin/product/EditProduct";
 import Settings from "./components/admin/Settings";
 import SetBanner from "./components/admin/SetBanner";
+import QRScanner from "./components/QRScanner";
 
 const Layout = ({ children }) => (
   <div className="App">
@@ -91,6 +92,7 @@ function App() {
           <Route path="/forget-password" element={<ForgetPassword />} />
           <Route path="/login" element={<Login />} />
           <Route path="/register" element={<Register />} />
+          <Route path="/qr" element={<QRScanner />} />
 
 
 
