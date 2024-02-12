@@ -26,10 +26,10 @@ const ForgetPassword = () => {
                 console.log(`${loading}`)
             }
             const res = await requestReceivePTK(email);
-            if (res.status !== undefined) {
+            if (res.status == "ok") {
                 navigate("/ok-password?email=" + email);
             } else {
-                toast.error(res.response.data.message);
+                toast.error(res.message);
             }
 
         } catch (error) {

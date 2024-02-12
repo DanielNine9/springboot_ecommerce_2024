@@ -1,0 +1,47 @@
+spring:
+  mail:
+    host: smtp.gmail.com
+    username: dinhhuyfpt09@gmail.com
+    port: '587'
+    properties:
+      mail:
+        smtp:
+          starttls:
+            enable: 'true'
+          auth: 'true'
+    password: vkdi xmjp wnjy xcit
+  jpa:
+    database: postgresql
+    hibernate:
+      ddl-auto: create-drop
+  main:
+    banner-mode: 'false'
+  datasource:
+    password: postgres
+    driver-class-name: org.postgresql.Driver
+    username: postgres
+    url: jdbc:postgresql://localhost:5432/postgres
+  security:
+    oauth2:
+      client:
+        registration:
+          google:
+            clientId: 809203514149-k43n7ppblaf0jouqkt4nc4kpnilbo80l.apps.googleusercontent.com
+            clientSecret: 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
+            scope: email, profile
+            redirectUri: '{baseUrl}/oauth2/{registrationId}'
+
+
+server:
+  port: '8080'
+app:
+  auth:
+    tokenExpirationMsec: '864000000'
+    tokenSecret: 04ca023b39512e46d0c2cf4b48d5aac61d34302994c87ed4eff225dcf3b0a218739f3897051a057f9b846a69ea2927a587044164b7bae5e1306219d50b588cb1
+  cors:
+    allowedOrigins: http://localhost:3000,http://localhost:8080
+  oauth2:
+    authorizedRedirectUris: http://localhost:3000/oauth2/redirect, myandroidapp://oauth2/redirect,
+      myiosapp://oauth2/redirect
+
+

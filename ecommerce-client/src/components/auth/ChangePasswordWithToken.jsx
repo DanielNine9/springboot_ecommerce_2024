@@ -53,17 +53,19 @@ const ChangePasswordWithToken = () => {
 
         }
     }
-    const handleSubmit = async () => {
+    const handleSubmit = async (e) => {
+        e.preventDefault();
         if (regLower && regUpper && regSpecialChar) {
             console.log(email)
             setLoading(true)
             try {
                 const res = await changePasswordWithPTK(token, { newPassword: password })
-                if (res.status != undefined) {
+                if (res.status == "ok") {
+                    toast.success(res.data)
                     navigate("/")
                 } else {
                     console.log(res)
-                    toast.error(res.response.data.message)
+                    toast.error(res.message)
                 }
             } catch (err) {
                 toast.error(err)
@@ -89,7 +91,7 @@ const ChangePasswordWithToken = () => {
     return (
         <div>
 
-            <div className='flex justify-center items-center flex-col w-screen h-screen '>
+            <form className='flex justify-center items-center flex-col w-screen h-screen '>
                 <div className=' bg-white shadow-lg p-4 px-10 py-2 mt-[-100px] pb-10 relative'>
                     <FaArrowLeft onClick={handleLeft} className='absolute top-4 left-4 text-red-700 hover:text-red-400 text-lg cursor-pointer' />
 
@@ -118,7 +120,7 @@ const ChangePasswordWithToken = () => {
                     <button onClick={handleSubmit} className='bg-red-700 text-white w-full px-4 py-1'>{loading ? "Đợi xíu...": "TIẾP TỤC"}</button>
                 </div>
 
-            </div>
+            </form>
         </div>
     )
 }
