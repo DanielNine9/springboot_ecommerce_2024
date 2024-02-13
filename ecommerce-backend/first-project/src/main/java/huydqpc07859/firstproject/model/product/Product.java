@@ -30,7 +30,7 @@ public class Product {
     private boolean deleted;
     private double discount;
     private Integer rank;
-    @OneToMany(mappedBy = "product")
+    @OneToMany(mappedBy = "product", cascade = CascadeType.ALL)
     private List<ProductItem> productItems;
     @ManyToOne
     private ProductCategory productCategory;

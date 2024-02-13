@@ -10,6 +10,7 @@ const ListVariation = () => {
     const [edit, setEdit] = useState(false)
     const [variationOptions, setVariationOptions] = useState(null)
     const [variationName, setVariationName] = useState("")
+    const [variationId, setVariationId] = useState("")
 
     const getCategories = async () => {
         const res = await requestGetCategories(null);
@@ -58,11 +59,12 @@ const ListVariation = () => {
     }
 
 
-    const handleEdit = async (variationName) => {
+    const handleEdit = async (variationName, variationId) => {
         const res = await requestGetVariationOptionsByVariation(null, variationName)
         if(res?.status == "ok"){
             setVariationOptions(res.data)
             setVariationName(variationName)
+            setVariationId(variationId)
             setEdit(true)
         }
     }
@@ -105,7 +107,7 @@ const ListVariation = () => {
                                 <td className="border text-center p-2">{variation.variationOptions?.length}</td>
                                 <td className="border text-center p-2">
                                     {/* <button className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-1 px-2 rounded mr-1" onClick={() => handleEdit(user)}>Edit</button> */}
-                                    <button className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-1 px-2 rounded mr-1" onClick={() => handleEdit(variation.name)}>Edit</button>
+                                    <button className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-1 px-2 rounded mr-1" onClick={() => handleEdit(variation.name, variation.id)}>Edit</button>
                                     <button className="bg-red-500 hover:bg-blue-700 text-white font-bold py-1 px-2 rounded mr-1" onClick={() => deleteVariation(variation.name)}>Delete</button>
                                 </td>
                             </tr>
@@ -115,7 +117,7 @@ const ListVariation = () => {
                 </tbody>
             </table>
             {
-                edit && <EditVariationOptions variationOptions={variationOptions} variationName = {variationName} hiddenEdit={hiddenEdit} reLoad={getVariation}/>
+                edit && variationId != "" && <EditVariationOptions variationOptions={variationOptions} variationName = {variationName} hiddenEdit={hiddenEdit} reLoad={getVariation}/>
             }
 
         </div>

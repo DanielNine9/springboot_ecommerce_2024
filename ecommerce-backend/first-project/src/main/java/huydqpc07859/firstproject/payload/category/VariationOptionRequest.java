@@ -9,5 +9,5 @@ import lombok.NoArgsConstructor;
 @Data
 public class VariationOptionRequest {
     private String value;
-    private String variationName;
+    private Long variationId;
 }

@@ -1,10 +1,8 @@
 package huydqpc07859.firstproject.model.category;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import java.util.List;
 
@@ -24,6 +22,11 @@ public class Variation {
     ProductCategory productCategory;
     @OneToMany(mappedBy = "variation", cascade = CascadeType.ALL)
     List<VariationOption> variationOptions;
+
+    @JsonProperty("variationOptions")
+    public List<String> getVariationOptionsJson() {
+        return variationOptions.stream().map(VariationOption::getValue).toList();
+    }
 }
 
 

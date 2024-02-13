@@ -4,12 +4,14 @@ import DialogYesNo from '../../common/DialogYesNo'
 import { toast } from 'react-toastify'
 import EditProduct from './EditProduct'
 import { AiFillPlusCircle } from "react-icons/ai"
+import AddProductItem from './AddProductItem'
 const ListProduct = () => {
     const [selectedProduct, setSelectedProduct] = useState(null)
     const [filterText, setFilterText] = useState("")
     const [products, setProducts] = useState([])
     const [deleted, setDeleted] = useState(null)
     const [add, setAdd] = useState(false)
+    const [addItem, setAddItem] = useState(null)
     useEffect(() => {
         getProducts()
     }, [])
@@ -43,6 +45,7 @@ const ListProduct = () => {
     const onSuccessAdd = async () => {
 
     }
+
     return (
         <div>
             <div className="p-4 w-full ">
@@ -89,6 +92,7 @@ const ListProduct = () => {
                                     <td className="border text-center p-2">{product.deleted ? "True" : "False"}</td>
                                     <td className="border text-center p-2">{product.productCategoryName}</td>
                                     <td className="border text-center p-2">
+                                        <button className="hover:bg-green-500 bg-green-700 text-white font-bold py-1 px-2 rounded mr-1" onClick={() => setAddItem(product)}>Add Items</button>
                                         <button className="hover:bg-blue-500 bg-blue-700 text-white font-bold py-1 px-2 rounded mr-1" onClick={() => setSelectedProduct(product)}>Edit</button>
                                         <button className="hover:bg-red-500 bg-red-700 text-white font-bold py-1 px-2 rounded mr-1" onClick={() => setDeleted(product)}>Remove</button>
                                     </td>
@@ -102,6 +106,7 @@ const ListProduct = () => {
                 {deleted != null && <DialogYesNo message={"Are you sure delete product with id " + deleted.id} onYes={onYes} onNo={onNo} />}
                 {selectedProduct != null && <EditProduct product={selectedProduct} hiddenEdit={() => setSelectedProduct(null)} onSuccess={onSuccess} />}
                 {add && <EditProduct product={null} hiddenEdit={() => setAdd(false)} onSuccess={onSuccess} />}
+                {addItem != null && <AddProductItem product={addItem} hiddenAddItem={() => setAddItem(null)} onSuccessAddItem={onSuccess} />}
             </div>
         </div>
     )

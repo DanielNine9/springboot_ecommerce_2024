@@ -15,8 +15,6 @@ import org.springframework.web.bind.annotation.*;
 public class VariationController {
     private final VariationService variationService;
 
-
-
     @PostMapping("add")
     public ResponseEntity<CommonResponse> add(@RequestBody VariationRequest request) {
         variationService.add(request);

@@ -5,6 +5,7 @@ import huydqpc07859.firstproject.model.category.ProductCategory;
 import huydqpc07859.firstproject.model.category.Variation;
 import huydqpc07859.firstproject.model.category.VariationOption;
 import huydqpc07859.firstproject.model.product.Product;
+import huydqpc07859.firstproject.model.product.ProductItem;
 import huydqpc07859.firstproject.model.user.AuthProvider;
 import huydqpc07859.firstproject.model.user.Role;
 import huydqpc07859.firstproject.model.user.User;
@@ -97,11 +98,24 @@ public class EcommerceApplication {
 			VariationOption varO1 = VariationOption.builder()
 					.value("value1")
 					.variation(var1)
+					.productItems(new ArrayList<>())
 					.build();
 			VariationOption varO2 = VariationOption.builder()
 					.value("value2")
 					.variation(var1)
+					.productItems(new ArrayList<>())
 					.build();
+			List<VariationOption> varOList = List.of(varO1, varO2);
+
+
+			ProductItem item1 = ProductItem.builder()
+					.quantity(10)
+					.imageUrl("imageUrl")
+					.product(iphone)
+					.variationOptions(varOList)
+					.build();
+			varOList.forEach(varO -> varO.getProductItems().add(item1));
+			iphone.getProductItems().add(item1);
 			var1.getVariationOptions().addAll(List.of(varO1,varO2));
 			phone.getProducts().add(iphone);
 			phone.getVariations().add(var1);

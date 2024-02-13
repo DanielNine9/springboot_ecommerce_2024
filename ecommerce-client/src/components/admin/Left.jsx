@@ -91,12 +91,18 @@ const Left = () => {
               (
                 <ul className='px-2 border'>
                   <li className="flex justify-between hover:text-gray-600 items-center text-lg gap-2  cursor-pointer">
-                    <Link to={"/admin/list-product"} className=' flex gap-2px-2 py-3  text-sm items-center'>
+                    <Link to={"/admin/list-product"} className='flex gap-2 px-2 py-3 text-sm items-center'>
                       <FaPlus className='text-sm' />
                       List Product
                     </Link>
                   </li>
                   <li className='w-full border border-gray-100'></li>
+                  <li className="flex justify-between hover:text-gray-600 items-center text-lg gap-2  cursor-pointer">
+                    <Link to={"/admin/list-product-item"} className='flex gap-2 px-2 py-3 text-sm items-center'>
+                      <FaPlus className='text-sm' />
+                      List Product Item
+                    </Link>
+                  </li>
 
                 </ul>
               )
@@ -121,7 +127,7 @@ const Left = () => {
               (
                 <ul className='px-2 border'>
                   <li className="flex justify-between hover:text-gray-600 items-center text-lg gap-2  cursor-pointer">
-                    <Link to={"/admin/user-management"} className=' flex gap-2px-2 py-3  text-sm items-center'>
+                    <Link to={"/admin/user-management"} className=' flex gap-2 px-2 py-3  text-sm items-center'>
                       <FaPlus className='text-sm' />
                       List User
                     </Link>

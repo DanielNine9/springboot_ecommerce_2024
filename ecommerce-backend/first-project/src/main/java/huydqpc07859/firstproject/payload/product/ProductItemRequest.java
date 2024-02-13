@@ -10,9 +10,8 @@ import java.util.List;
 @AllArgsConstructor
 @Data
 public class ProductItemRequest {
-    private long quantity;
-    private String imageUrl;
-
-    private long idProduct;
+    private int quantity = 0;
+    private String imageUrl = "";
+    private long idProduct = -1;
     private List<Long> idVariationOptions;
 }

@@ -120,7 +120,7 @@ const EditProduct = ({ product, hiddenEdit, onSuccess }) => {
                     <IoIosClose className='text-2xl hover:opacity-45 cursor-pointer' onClick={() => hiddenEdit()} />
                 </div>
 
-                <h3 className="text-2xl font-bold text-gray-800 mb-6">Edit Product</h3>
+                <h3 className="text-2xl font-bold text-gray-800 mb-6">{product != null ? "Edit": "Add"} Product</h3>
 
                 <div className="grid grid-cols-2 gap-8">
                     <div>

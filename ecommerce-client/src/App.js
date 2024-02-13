@@ -26,6 +26,7 @@ import EditProduct from "./components/admin/product/EditProduct";
 import Settings from "./components/admin/Settings";
 import SetBanner from "./components/admin/SetBanner";
 import QRScanner from "./components/QRScanner";
+import ListProductItem from "./components/admin/product/ListProductItem";
 
 const Layout = ({ children }) => (
   <div className="App">
@@ -126,6 +127,7 @@ function App() {
           <Route path="/admin/edit-product" element={<EditProduct />} />
           <Route path="/admin/settings" element={<Settings />} />
           <Route path="/admin/banner" element={<SetBanner />} />
+          <Route path="/admin/list-product-item" element={<ListProductItem />} />
         </Route>
         <Route
           element={

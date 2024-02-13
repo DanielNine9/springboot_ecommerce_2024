@@ -25,8 +25,8 @@ public class VariationOptionService {
     private final VariationOptionRepository variationOptionRepository;
 
     public VariationOption add(VariationOptionRequest request) {
-        Variation var = variationRepository.findByName(request.getVariationName())
-                .orElseThrow(() -> new RuntimeException("Variation with name " + request.getVariationName()
+        Variation var = variationRepository.findById(request.getVariationId())
+                .orElseThrow(() -> new RuntimeException("Variation with name " + request.getVariationId()
                         + " is not found"));
 
         boolean exists = variationOptionRepository.findByValueAndVariation(request.getValue(), var).isPresent();
@@ -78,8 +78,8 @@ public class VariationOptionService {
 
 
     public void remove(VariationOptionRequest request) {
-        Variation var = variationRepository.findByName(request.getVariationName())
-                .orElseThrow(() -> new RuntimeException("Variation with name " + request.getVariationName()
+        Variation var = variationRepository.findById(request.getVariationId())
+                .orElseThrow(() -> new RuntimeException("Variation with name " + request.getVariationId()
                         + " is not found"));
 
         VariationOption varOption = variationOptionRepository

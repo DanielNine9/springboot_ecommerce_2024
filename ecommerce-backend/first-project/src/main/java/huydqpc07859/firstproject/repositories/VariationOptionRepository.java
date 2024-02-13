@@ -1,10 +1,12 @@
 package huydqpc07859.firstproject.repositories;
 
+import huydqpc07859.firstproject.model.category.ProductCategory;
 import huydqpc07859.firstproject.model.category.Variation;
 import huydqpc07859.firstproject.model.category.VariationOption;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
+import java.util.Collection;
 import java.util.List;
 import java.util.Optional;
 
@@ -13,4 +15,11 @@ public interface VariationOptionRepository extends JpaRepository<VariationOption
     Optional<VariationOption> findByValueAndVariation(String value, Variation var);
 
     List<VariationOption> findAllByValueInAndVariation(List<String> values, Variation variation);
+    List<VariationOption> findAllByValueIn(List<String> names);
+
+    List<VariationOption> findAllByValueInAndVariation_ProductCategory(Collection<String> value, ProductCategory variation_productCategory);
+
+    Optional<VariationOption> findByValue(String s);
+
+    List<VariationOption> findAllByIdIn(List<Long> idVariationOptions);
 }

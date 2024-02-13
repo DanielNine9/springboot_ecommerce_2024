@@ -12,11 +12,13 @@ import java.util.List;
 @AllArgsConstructor
 @Data
 public class VariationResponse {
+    private Long id;
     private String name;
     private String categoryName;
     List<VariationOptionResponse> variationOptions;
 
     public VariationResponse(Variation var){
+        this.id = var.getId();
         this.name = var.getName();
         this.categoryName = var.getProductCategory().getName();
         this.variationOptions = var.getVariationOptions().stream().map(VariationOptionResponse::new).toList();

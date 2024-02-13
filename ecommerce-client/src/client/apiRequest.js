@@ -244,6 +244,23 @@ export const requestGetCategories = async (token) => {
     }
 }
 
+export const requestGetCategoriesByName = async (token, nameCategory) => {
+    try {
+        const res = await axios.get(`/category/${nameCategory}`,
+            // {
+            //     headers: {
+            //         Authorization: `Bearer ${token}`
+            //     }
+            // }
+        )
+        return res.data;
+    } catch (err) {
+        // dispatch(loginFailed())
+        console.log(err)
+        return err
+    }
+}
+
 export const requestGetParentCategories = async (token) => {
     console.log(token)
     try {
@@ -334,12 +351,46 @@ export const requestAddAllVariation = async (token, request) => {
         return err
     }
 }
+export const requestAddVariation = async (token, request) => {
+    try {
+        const res = await axios.post(`/variation/add`,
+            request,
+            {
+                headers: {
+                    Authorization: `Bearer ${token}`
+                }
+            }
+        )
+        return res.data;
+    } catch (err) {
+        // dispatch(loginFailed())
+        console.log(err)
+        return err
+    }
+}
 
 
 
 export const requestAddAllVariationOption = async (token, request) => {
     try {
         const res = await axios.post(`/var-option/add-all`,
+            request,
+            {
+                headers: {
+                    Authorization: `Bearer ${token}`
+                }
+            }
+        )
+        return res.data;
+    } catch (err) {
+        // dispatch(loginFailed())
+        console.log(err)
+        return err
+    }
+}
+export const requestAddVariationOption = async (token, request) => {
+    try {
+        const res = await axios.post(`/var-option/add`,
             request,
             {
                 headers: {
@@ -460,6 +511,23 @@ export const requestGetProducts = async (token) => {
 export const requestEditProduct = async (token, product) => {
     try {
         const res = await axios.post(`/product/edit`,
+            product,
+            {
+                headers: {
+                    Authorization: `Bearer ${token}`
+                }
+            }
+        )
+        return res.data;
+    } catch (err) {
+        // dispatch(loginFailed())
+        console.log(err)
+        return err
+    }
+};
+export const requestAddProductItem = async (token, product) => {
+    try {
+        const res = await axios.post(`/product-item/add`,
             product,
             {
                 headers: {

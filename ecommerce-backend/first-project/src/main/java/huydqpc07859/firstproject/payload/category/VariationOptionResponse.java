@@ -11,9 +11,11 @@ import java.util.List;
 @Data
 public class VariationOptionResponse
 {
+    private Long id;
     private String value;
     private String variationName;
     public VariationOptionResponse(VariationOption option) {
+        this.id = option.getId();
         this.value = option.getValue();
         this.variationName = option.getVariation().getName();
     }
