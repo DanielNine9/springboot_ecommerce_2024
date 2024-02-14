@@ -476,6 +476,24 @@ export const requestDeleteAllVarOptionsByVar = async (token, varName) => {
     }
 }
 
+export const requestDeleteAllVarOptionsByItemId = async (token, itemId) => {
+    try {
+        const res = await axios.delete(`/var-option/delete-all/item/${itemId}`,
+            {
+                headers: {
+                    Authorization: `Bearer ${token}`
+                }
+            }
+        )
+        return res.data;
+    } catch (err) {
+        // dispatch(loginFailed())
+        console.log(err)
+        return err
+    }
+}
+
+
 // image
 export const requestGetImage = async (url) => {
     try {
@@ -495,6 +513,23 @@ export const requestGetImage = async (url) => {
 export const requestGetProducts = async (token) => {
     try {
         const res = await axios.get(`/product`,
+            {
+                headers: {
+                    Authorization: `Bearer ${token}`
+                }
+            }
+        )
+        return res.data;
+    } catch (err) {
+        // dispatch(loginFailed())
+        console.log(err)
+        return err
+    }
+};
+
+export const requestGetProductsByCategory = async (token, category) => {
+    try {
+        const res = await axios.get(`/product/category/${category}`,
             {
                 headers: {
                     Authorization: `Bearer ${token}`
@@ -542,6 +577,23 @@ export const requestAddProductItem = async (token, product) => {
         return err
     }
 };
+export const requestEditProductItem = async (token, product) => {
+    try {
+        const res = await axios.post(`/product-item/edit`,
+            product,
+            {
+                headers: {
+                    Authorization: `Bearer ${token}`
+                }
+            }
+        )
+        return res.data;
+    } catch (err) {
+        // dispatch(loginFailed())
+        console.log(err)
+        return err
+    }
+};
 export const requestAddProduct = async (token, product) => {
     try {
         const res = await axios.post(`/product/add`,
@@ -562,6 +614,25 @@ export const requestAddProduct = async (token, product) => {
 export const requestRemoveProductWithId = async (token, productId) => {
     try {
         const res = await axios.post(`/product/remove/${productId}`,
+            {
+                headers: {
+                    Authorization: `Bearer ${token}`
+                }
+            }
+        )
+        return res.data;
+    } catch (err) {
+        // dispatch(loginFailed())
+        console.log(err)
+        return err
+    }
+};
+
+// product - item
+
+export const requestGetProductItemByProductId = async (token, productId) => {
+    try {
+        const res = await axios.get(`/product-item/${productId}`,
             {
                 headers: {
                     Authorization: `Bearer ${token}`

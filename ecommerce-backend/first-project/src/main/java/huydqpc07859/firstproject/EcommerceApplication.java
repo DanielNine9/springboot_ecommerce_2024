@@ -70,7 +70,7 @@ public class EcommerceApplication {
 					.deleted(false)
 					.description("Iphone 15 description")
 					.name("Iphone 15")
-					.imageUrl("image")
+					.imageUrl("https://encrypted-tbn2.gstatic.com/shopping?q=tbn:ANd9GcThIIcPEUMjSYrvJAh52ztrt5Bph5avX50GmG8AlDn5fLsTYyXh_Pm6TQivPzwq3L-b8pJJxBOiirearfb_KLzLT1Gy15rQsvGFv3_E5s-qcYL-7MX3d3nXfyWC0s1tFX5Xl150ptc&usqp=CAc")
 					.productCategory(phone)
 					.build();
 
@@ -79,7 +79,7 @@ public class EcommerceApplication {
 					.deleted(false)
 					.description("Acer description")
 					.name("Acer")
-					.imageUrl("image")
+					.imageUrl("https://cdn.tgdd.vn/Products/Images/44/263983/acer-nitro-5-gaming-an515-57-5669-i5-11400h-8gb-512gb-144hz-4gb-gtx1650-win11-nhqehsv001-031221-100506-600x600.jpg")
 					.productCategory(laptop)
 					.build();
 
@@ -102,7 +102,7 @@ public class EcommerceApplication {
 					.build();
 			VariationOption varO2 = VariationOption.builder()
 					.value("value2")
-					.variation(var1)
+					.variation(var2)
 					.productItems(new ArrayList<>())
 					.build();
 			List<VariationOption> varOList = List.of(varO1, varO2);

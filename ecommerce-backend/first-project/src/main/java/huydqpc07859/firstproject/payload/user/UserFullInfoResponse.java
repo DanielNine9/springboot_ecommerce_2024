@@ -22,8 +22,8 @@ public class UserFullInfoResponse {
     private AuthProvider provider = AuthProvider.local;
     private String providerId;
     private String imageUrl;
-    private String address = "Empty";
-    private String phoneNumber = "Empty";
+    private String address = "";
+    private String phoneNumber = "";
 
 
     public UserFullInfoResponse(User user){

@@ -109,8 +109,8 @@ const CreateCategory = ({ getCategoriesList }) => {
                         </select>
                     </div>
                     <div className="flex flex-col">
-                        <label htmlFor="">Name category</label>
-                        <input value={newCategory} onChange={onChangeNewCategory} className='outline-none border px-2 py-1' type="text" />
+                        <label htmlFor="nameCategory">Name category</label>
+                        <input autoFocus id="nameCategory" value={newCategory} onChange={onChangeNewCategory} className='outline-none border px-2 py-1' type="text" />
                     </div>
 
                     <div className='flex gap-2 items-center'>

@@ -19,10 +19,13 @@ const EditCategory = ({ category, hiddenEdit, getCategoriesList }) => {
     const getCategories = async () => {
         const res = await requestGetParentCategories()
         if (res.status == 'ok') {
-            setCategories(res.data)
+            console.log(category.name)
+            const categories = res?.data?.filter(c => c.name != category.name)
+
+            setCategories(categories)
         }
     }
-  
+
     const handleChange = (e) => {
         const { name, value } = e.target;
         setEditCategory({ ...editCategory, [name]: value });
@@ -45,8 +48,9 @@ const EditCategory = ({ category, hiddenEdit, getCategoriesList }) => {
     const handleSave = async (e) => {
         e.preventDefault()
         const imageUrl = await storageImage();
-        console.log(editCategory.parentName)
+        console.log(editCategory.id)
         const request = {
+            "id": editCategory.id,
             "name": editCategory.name,
             "parentName": editCategory.parentName,
             "deleted": editCategory.deleted,
@@ -83,20 +87,19 @@ const EditCategory = ({ category, hiddenEdit, getCategoriesList }) => {
     };
 
     const onChangeSelect = (e) => {
-        setEditCategory({...editCategory, parentName: e.target.value})
+        setEditCategory({ ...editCategory, parentName: e.target.value })
     }
-    console.log(categories)
 
     return (
         <div className="fixed top-0 left-0 w-full h-full flex justify-center items-center bg-black bg-opacity-50 z-50">
-            <div className="bg-white p-4 rounded w-1/3">
+            <div className="bg-white p-4 rounded w-2/4">
                 <div className="flex justify-end" onClick={() => hiddenEdit()}>
                     <IoIosClose className='text-2xl hover:opacity-45 cursor-pointer' />
                 </div>
 
                 <h3 className="text-lg font-semibold mb-4">Edit category with name {category.name}</h3>
-                <div className="flex gap-2">
-                    <div>
+                <div className="flex gap-2 w-full">
+                    <div className='border w-2/4'>
                         <input
                             type="file"
                             ref={fileInputRef}
@@ -105,15 +108,15 @@ const EditCategory = ({ category, hiddenEdit, getCategoriesList }) => {
                             accept="image/*"
                         />
                         <img
-                            className='h-24 w-32 bg-contain cursor-pointer'
+                            className='h-full w-full bg-cover cursor-pointer'
                             src={editCategory.imageUrl != null && editCategory.imageUrl}
                             alt={editCategory.name}
                             onClick={triggerFileInput}
                         />
                     </div>
 
-                    <div>
-                        <form>
+                    <form onSubmit={handleSave}>
+                        <div>
                             <div className="flex gap-2 items-center w-full">
                                 <label for="parentCategoryName">Parent name:</label>
                                 <select
@@ -136,6 +139,7 @@ const EditCategory = ({ category, hiddenEdit, getCategoriesList }) => {
                             <input
                                 type="text"
                                 id="categoryName"
+                                name="name"
                                 value={editCategory.name}
                                 onChange={handleChange}
                                 className="border rounded px-2 py-1 mb-2"
@@ -168,9 +172,9 @@ const EditCategory = ({ category, hiddenEdit, getCategoriesList }) => {
                                 </div>
                             </div>
 
-                            <button type="button" onClick={handleSave} className="bg-blue-500 text-white px-3 py-1 rounded">Save</button>
-                        </form>
-                    </div>
+                            <button onClick={handleSave} type="button" className="bg-blue-500 text-white px-3 py-1 rounded">Save</button>
+                        </div>
+                    </form>
                 </div>
             </div>
         </div>

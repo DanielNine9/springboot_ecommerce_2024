@@ -10,6 +10,7 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @Data
 public class CategoryNameRequest {
+    private Long id;
     @NotBlank
     private String name = "";
     private String imageUrl = "";

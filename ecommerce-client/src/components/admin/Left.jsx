@@ -1,16 +1,26 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { MdDashboard } from "react-icons/md";
 import { AiFillSignal } from "react-icons/ai";
 import { RiProductHuntFill } from "react-icons/ri";
 import { FaUser } from "react-icons/fa";
 import { FaAngleRight, FaAngleDown, FaPlus } from "react-icons/fa6";
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
+import { useSelector } from 'react-redux';
 
 const Left = () => {
+  const userInfo = useSelector(state => state?.auth?.login?.userInfo)
 
   const [isCategory, setIsCategory] = useState(false)
   const [isProduct, setIsProduct] = useState(false)
   const [isUser, setIsUser] = useState(false)
+  const navigate = useNavigate()
+
+  useEffect(() => {
+    if (userInfo == null) {
+      navigate("/login")
+    }
+
+  }, [])
 
   const onClickCategory = () => {
     setIsCategory(!isCategory)

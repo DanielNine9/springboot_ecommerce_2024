@@ -18,14 +18,23 @@ public class VariationOptionController {
 
     @PostMapping("add")
     public ResponseEntity<CommonResponse> add(@RequestBody VariationOptionRequest request) {
-        service.add(request);
-        return ResponseEntity.ok(new CommonResponse("Add variation option successfully"));
+        if(request.getValue().isBlank()){
+            throw new RuntimeException("The value is not empty");
+        }
+
+        return ResponseEntity.ok(new CommonResponse(service.add(request)));
     }
 
     @PostMapping("add-all")
     public ResponseEntity<CommonResponse> addAll(@RequestBody VariationOptionsRequest request) {
         service.addAll(request);
         return ResponseEntity.ok(new CommonResponse("Add variation options successfully"));
+    }
+
+    @DeleteMapping("delete-all/item/{idItem}")
+    public ResponseEntity<CommonResponse> deleteAllByItemId(@PathVariable("idItem") Long idItem) {
+        service.deleteAllVariationOptionsOfItemId(idItem);
+        return ResponseEntity.ok(new CommonResponse("Delete all variation options successfully"));
     }
 
     @DeleteMapping("delete-all/{varName}")

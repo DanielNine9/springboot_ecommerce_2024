@@ -77,7 +77,8 @@ public class CategoryService {
 
 
     public void edit(CategoryNameRequest request) {
-        ProductCategory category = categoryRepository.findByName(request.getName()).orElseThrow(() ->
+        ProductCategory category = categoryRepository
+                .findById(request.getId()).orElseThrow(() ->
                 new RuntimeException("This category is not found"));
 
         category.setName(request.getName());

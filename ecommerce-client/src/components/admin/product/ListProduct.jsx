@@ -41,11 +41,7 @@ const ListProduct = () => {
         getProducts()
         setSelectedProduct(null)
     }
-
-    const onSuccessAdd = async () => {
-
-    }
-
+  
     return (
         <div>
             <div className="p-4 w-full ">
@@ -68,38 +64,39 @@ const ListProduct = () => {
                 </div>
 
                 <div className='overflow-y-auto max-h-[500px]'>
-                    <table className="w-full border-collapse border">
-                        <thead>
-                            <tr className="bg-gray-200">
-                                <th className="border p-2">Id</th>
-                                <th className="border p-2">Product name</th>
-                                <th className="border p-2">Description</th>
-                                <th className="border p-2">Image</th>
-                                <th className="border p-2">Deleted</th>
-                                <th className="border p-2">Category</th>
-                                <th className="border p-2">Action</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            {products?.map(product => (
-                                <tr key={product.name} className="hover:bg-gray-100">
-                                    <td className="border text-center p-2">{product.id}</td>
-                                    <td className="border text-center p-2">{product.name}</td>
-                                    <td className="border text-center p-2">{product.description}</td>
-                                    <td className="border text-center p-2">
-                                        <img className='w-24 h-12' src={product != null && product.imageUrl} alt={product.name} />
-                                    </td>
-                                    <td className="border text-center p-2">{product.deleted ? "True" : "False"}</td>
-                                    <td className="border text-center p-2">{product.productCategoryName}</td>
-                                    <td className="border text-center p-2">
-                                        <button className="hover:bg-green-500 bg-green-700 text-white font-bold py-1 px-2 rounded mr-1" onClick={() => setAddItem(product)}>Add Items</button>
-                                        <button className="hover:bg-blue-500 bg-blue-700 text-white font-bold py-1 px-2 rounded mr-1" onClick={() => setSelectedProduct(product)}>Edit</button>
-                                        <button className="hover:bg-red-500 bg-red-700 text-white font-bold py-1 px-2 rounded mr-1" onClick={() => setDeleted(product)}>Remove</button>
-                                    </td>
+                        <table className="w-full border-collapse border">
+                            <thead>
+                                <tr className="bg-gray-200">
+                                    <th className="border p-2">Id</th>
+                                    <th className="border p-2">Product name</th>
+                                    <th className="border p-2">Description</th>
+                                    <th className="border p-2">Image</th>
+                                    <th className="border p-2">Deleted</th>
+                                    <th className="border p-2">Category</th>
+                                    <th className="border p-2">Action</th>
                                 </tr>
-                            ))}
-                        </tbody>
-                    </table>
+                            </thead>
+                            <tbody>
+                                {products?.map(product => (
+                                    <tr  key={product.name} className="hover:bg-gray-100">
+                                        <td className="border text-center p-2">{product.id}</td>
+                                        <td className="border text-center p-2">{product.name}</td>
+                                        <td className="border text-center p-2">{product.description}</td>
+                                        <td className="border text-center p-2 flex justify-center items-center">
+                                            <img className='w-52 h-44 bg-contain' src={product != null && product.imageUrl} alt={product.name} />
+                                        </td>
+                                        <td className="border text-center p-2">{product.deleted ? "True" : "False"}</td>
+                                        <td className="border text-center p-2">{product.productCategoryName}</td>
+                                        <td className="border text-center p-2">
+                                            <button className="hover:bg-green-500 bg-green-700 text-white font-bold py-1 px-2 rounded mr-1" onClick={() => setAddItem(product)}>Add Items</button>
+                                            <button className="hover:bg-blue-500 bg-blue-700 text-white font-bold py-1 px-2 rounded mr-1" onClick={() => setSelectedProduct(product)}>Edit</button>
+                                            <button className="hover:bg-red-500 bg-red-700 text-white font-bold py-1 px-2 rounded mr-1" onClick={() => setDeleted(product)}>Remove</button>
+                                        </td>
+                                    </tr>
+                                ))}
+                            </tbody>
+                        </table>
+
                 </div>
                 {/* {selectedProduct != null && <editProduct category={editCategory} hiddenEdit={hiddenEdit} getCategoriesList={getCategoriesList} />} */}
 

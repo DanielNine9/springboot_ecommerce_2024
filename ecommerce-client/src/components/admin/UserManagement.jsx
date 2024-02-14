@@ -4,6 +4,7 @@ import { requestGetUsers } from '../../client/apiRequest';
 import Loading from '../Loading';
 import EditUserForm from './EditForm';
 import AddUserForm from './AddForm';
+import { toast } from 'react-toastify';
 
 function UserManagement() {
     const userInfo = useSelector(state => state?.auth?.login?.userInfo);
@@ -19,15 +20,19 @@ function UserManagement() {
     useEffect(() => {
         if (userInfo) {
             if (userInfo.role !== 'ADMIN') {
-                console.log("Bạn không có quyền");
+                toast.error("This function of admin role");
                 return;
             }
             loadData();
         }
     }, []);
 
-    const loadData = async () => {
+    const loadData = async (e) => {
+        if (e != undefined) {
+            e.preventDefault()
+        }
         setLoading(true);
+        console.log(address)
         try {
             const res = await requestGetUsers(userInfo.token, email, role, address);
             setUsers(res.data);
@@ -64,8 +69,8 @@ function UserManagement() {
             {/* Filter section */}
             <h2 className='text-center text-2xl text-red-600 font-bold my-2'>User Management</h2>
             <div className="flex mb-4 justify-between">
-                <div>
-                    <input className="border p-2 mr-2" type="text" placeholder="Email" value={email} onChange={e => setEmail(e.target.value)} />
+                <form onSubmit={loadData}>
+                    <input autoFocus className="border p-2 mr-2" type="text" placeholder="Email" value={email} onChange={e => setEmail(e.target.value)} />
                     <select className="border p-2 mr-2" value={role} onChange={e => setRole(e.target.value)}>
                         <option value="">Select Role</option>
                         <option value="ADMIN">ADMIN</option>
@@ -73,8 +78,8 @@ function UserManagement() {
                         <option value="SELLER">SELLER</option>
                     </select>
                     <input className="border p-2 mr-2" type="text" placeholder="Address" value={address} onChange={e => setAddress(e.target.value)} />
-                    <button className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded" onClick={loadData}>Search</button>
-                </div>
+                    <button onClick={loadData} className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">Search</button>
+                </form>
                 <div>
                     <button onClick={() => setOpenAddForm(!openAddForm)} className='bg-green-500 hover:bg-green-700 px-4 py-2'>Add</button>
                 </div>
@@ -98,7 +103,6 @@ function UserManagement() {
                             <td className="border text-center p-2">{user.role}</td>
                             <td className="border text-center p-2">{user.address}</td>
                             <td className="border text-center p-2">
-                                <button className="bg-green-500 hover:bg-green-700 text-white font-bold py-1 px-2 rounded mr-2">View Details</button>
                                 <button className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-1 px-2 rounded mr-1" onClick={() => handleEdit(user)}>Edit</button>
                             </td>
                         </tr>

@@ -3,6 +3,7 @@ package huydqpc07859.firstproject.services.product;
 import huydqpc07859.firstproject.model.category.VariationOption;
 import huydqpc07859.firstproject.model.product.Product;
 import huydqpc07859.firstproject.model.product.ProductItem;
+import huydqpc07859.firstproject.payload.product.EditProductItemRequest;
 import huydqpc07859.firstproject.payload.product.ProductItemRequest;
 import huydqpc07859.firstproject.repositories.ProductItemRepository;
 import huydqpc07859.firstproject.repositories.ProductRepository;
@@ -39,7 +40,6 @@ public class ProductItemService {
         List<VariationOption> variationOptions =
                 variationOptionRepository
                         .findAllByIdIn(request.getIdVariationOptions());
-        System.out.println(variationOptions.size());
         ProductItem item = ProductItem.builder()
                 .product(product)
                 .imageUrl(request.getImageUrl())
@@ -53,28 +53,25 @@ public class ProductItemService {
         return item;
     }
 
-    public ProductItem edit(ProductItemRequest request) {
-//        Product product = productRepository.findById(request.getIdProduct())
-//                .orElseThrow(() -> new RuntimeException("Product is not found"));
-//
-//        List<VariationOption> variationOptions =
-//                variationOptionRepository
-//                        .findAllByValueInAndVariation_ProductCategory
-//                                (request.getV()
-//                                        , product.getProductCategory());
-//
-//        System.out.println(variationOptions);
-//
-//        ProductItem item = ProductItem.builder()
-//                .product(product)
-//                .imageUrl(request.getImageUrl())
-//                .quantity(request.getQuantity())
-//                .variationOptions(variationOptions)
-//                .build();
+    public ProductItem edit(EditProductItemRequest request) {
+        System.out.println(request);
+        ProductItem productItem = productItemRepository.findById(request.getItemId())
+                .orElseThrow(() -> new RuntimeException("Product item is not found"));
+        List<VariationOption> variationOptions =
+                variationOptionRepository
+                        .findAllByIdIn(request.getIdVariationOptions());
 
-//
-//        productItemRepository.save(item);
-        return null;
+        productItem.setImageUrl(request.getImageUrl());
+        productItem.setQuantity(request.getQuantity());
+        productItem.setVariationOptions(variationOptions);
+
+        if(!variationOptions.isEmpty()){
+            variationOptions.forEach(option -> option.getProductItems().add(productItem));
+            variationOptionRepository.saveAll(variationOptions);
+        }
+
+        productItemRepository.save(productItem);
+        return productItem;
     }
 
     public ProductItem remove() {

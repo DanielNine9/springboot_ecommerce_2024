@@ -27,15 +27,15 @@ const AddUserForm = ({ onCancel, token, onLoad }) => {
     };
 
     const handleSubmit = async (e) => {
-        setLoading(true);
         e.preventDefault()
+        setLoading(true);
+
         try {
             const res = await requestAddUser(token, newUser)
             if (res.status != "ok") {
                 toast.error(res.message)
                 return
             }
-            console.log(res)
             toast.success(res.data)
             onLoad()
         } catch (error) {

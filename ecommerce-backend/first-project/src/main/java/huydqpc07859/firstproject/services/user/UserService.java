@@ -47,7 +47,7 @@ private final PasswordEncoder passwordEncoder;
         User user = userRepository.findByEmail(request.getEmail()).orElseThrow(
                 () -> new UsernameNotFoundException("Email is not found")
         );
-        if(user.getRole().equals(AuthProvider.admin)){
+        if(user.getRole().name().equals(AuthProvider.admin.name())){
             user.setPassword(request.getPassword());
         }
         user.setEnabled(request.isEnabled());
@@ -65,7 +65,7 @@ private final PasswordEncoder passwordEncoder;
         User user = User.builder()
                 .email(req.getEmail())
                 .password(passwordEncoder.encode(req.getPassword()))
-                .role(Role.BUYER)
+                .role(req.getRole())
                 .fullName(req.getFullName())
                 .provider(AuthProvider.admin)
                 .build();

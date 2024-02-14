@@ -3,10 +3,12 @@ package huydqpc07859.firstproject.services.product;
 import huydqpc07859.firstproject.model.category.ProductCategory;
 import huydqpc07859.firstproject.model.category.Variation;
 import huydqpc07859.firstproject.model.category.VariationOption;
+import huydqpc07859.firstproject.model.product.ProductItem;
 import huydqpc07859.firstproject.payload.category.VariationOptionRequest;
 import huydqpc07859.firstproject.payload.category.VariationOptionResponse;
 import huydqpc07859.firstproject.payload.category.VariationOptionsRequest;
 import huydqpc07859.firstproject.payload.category.VariationsRequest;
+import huydqpc07859.firstproject.repositories.ProductItemRepository;
 import huydqpc07859.firstproject.repositories.VariationOptionRepository;
 import huydqpc07859.firstproject.repositories.VariationRepository;
 import lombok.AllArgsConstructor;
@@ -23,6 +25,7 @@ import java.util.stream.Collectors;
 public class VariationOptionService {
     private final VariationRepository variationRepository;
     private final VariationOptionRepository variationOptionRepository;
+    private final ProductItemRepository productItemRepository;
 
     public VariationOption add(VariationOptionRequest request) {
         Variation var = variationRepository.findById(request.getVariationId())
@@ -104,10 +107,26 @@ public class VariationOptionService {
                 .orElseThrow(() -> new RuntimeException("This variation is not found"));
 
         List<VariationOption> opts = var.getVariationOptions();
-        if(opts.size() > 0){
+        if(!opts.isEmpty()){
             var.setVariationOptions(new ArrayList<>());
             variationOptionRepository.deleteAll(opts);
         }
         variationRepository.save(var);
+    }
+
+    public void deleteAllVariationOptionsOfItemId(Long idItem) {
+        ProductItem productItem = productItemRepository
+                .findById(idItem)
+                .orElseThrow(() -> new RuntimeException("This variation is not found"));
+
+        List<VariationOption> opts = productItem.getVariationOptions();
+        if(!opts.isEmpty()){
+            productItem.setVariationOptions(new ArrayList<>());
+            opts.forEach(opt -> {
+                opt.getProductItems().remove(productItem);
+            });
+            variationOptionRepository.saveAll(opts);
+        }
+        productItemRepository.save(productItem);
     }
 }

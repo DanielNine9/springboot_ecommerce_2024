@@ -16,6 +16,7 @@ import java.util.List;
 @AllArgsConstructor
 @Data
 public class CategoryResponse {
+    private Long id;
     private String name;
     private String imageUrl;
     private boolean deleted;
@@ -25,6 +26,7 @@ public class CategoryResponse {
     private List<ProductResponse> products;
 
     public CategoryResponse(ProductCategory category) {
+        this.id = category.getId();
         this.name = category.getName();
         this.imageUrl = category.getImageUrl();
         this.deleted = category.isDeleted();
